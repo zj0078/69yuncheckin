@@ -210,9 +210,9 @@ def checkin(account, domain, BotToken, ChatID):
             # 账号信息的展示，注意密码用 <tg-spoiler> 标签隐藏
             # 根据返回的结果更新签到信息
             if checkin_result.get('ret') == 1 or checkin_result.get('ret') == 0:
-                签到结果 = 用户信息 + f"🎉 签到结果 🎉\n {checkin_result.get('msg', '签到成功' if checkin_result['ret'] == 1 else '签到失败')}"
+                签到结果 = f"🎉 签到结果 🎉\n {checkin_result.get('msg', '签到成功' if checkin_result['ret'] == 1 else '签到失败')}"
             else:
-                签到结果 = 用户信息 + f"🎉 签到结果 🎉\n {checkin_result.get('msg', '签到结果未知')}"
+                签到结果 = f"🎉 签到结果 🎉\n {checkin_result.get('msg', '签到结果未知')}"
         except Exception as e:
             # 如果出现解析错误，检查是否由于登录失效
             if "登录" in response_text:
@@ -220,7 +220,7 @@ def checkin(account, domain, BotToken, ChatID):
             raise ValueError(f"解析签到响应失败: {str(e)}\n\n原始响应: {response_text}")
 
         # 发送签到结果到 Telegram
-        send_message(账号信息 + 签到结果, BotToken, ChatID)
+        send_message(账号信息 + 用户信息 + 签到结果, BotToken, ChatID)
         return 签到结果
 
     except Exception as error:
