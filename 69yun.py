@@ -159,7 +159,7 @@ def checkin(account, domain, BotToken, ChatID):
 
         # 解析登录响应的 JSON 数据
         login_json = login_response.json()
-        print(f' {user}账号登录后返回的用户信息:', login_json)
+        print(f'{user}账号登录后返回的用户信息:', login_json)
 
         # 检查登录是否成功
         if login_json.get("ret") != 1:
@@ -245,4 +245,6 @@ if __name__ == "__main__":
 
     # 循环执行每个账号的签到任务
     for account in config.get("accounts", []):
+        print("---------------------------------------------------------------------------")
         print(checkin(account, domain, BotToken, ChatID))
+        print("---------------------------------------------------------------------------")
