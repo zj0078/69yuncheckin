@@ -249,7 +249,7 @@ def checkin(account, domain, BotToken, ChatID):
 # 主程序执行逻辑
 if __name__ == "__main__":
     # 检查环境变量 config 是否存在，如果存在则更新 config.json
-    write_config_from_env()
+    # write_config_from_env()
 
     # 读取配置
     config = read_config(config_file_path)
