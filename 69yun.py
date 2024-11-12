@@ -10,22 +10,6 @@ from datetime import datetime, timedelta
 config_file_path = "config.json"
 签到结果 = ""
 
-# 检查环境变量 CONFIG_JSON 是否存在，如果存在则写入 config.json，否则直接读取本地 config.json
-def write_config_from_env():
-    config_json = os.getenv("CONFIG_JSON")
-
-    if config_json:
-        try:
-            # 将环境变量 config 的内容写入到本地的 config.json 文件
-            config_data = json.loads(config_json)  # 解析环境变量中的 JSON 内容
-            with open(config_file_path, 'w', encoding='utf-8') as f:
-                json.dump(config_data, f, ensure_ascii=False, indent=4)
-            print("配置文件已从环境变量更新。")
-        except json.JSONDecodeError:
-            raise ValueError("环境变量 CONFIG_JSON 内容不是有效的 JSON 格式。")
-    else:
-        print("未检测到环境变量 CONFIG_JSON，直接使用本地的 config.json 配置文件。")
-
 # 获取html中的用户信息
 def fetch_and_extract_info(domain,headers):
     url = f"{domain}/user"
@@ -34,7 +18,7 @@ def fetch_and_extract_info(domain,headers):
     response = requests.get(url, headers=headers)
 
     if response.status_code != 200:
-        print("Failed to retrieve the page.")
+        print("用户信息获取失败，页面打开异常.")
         return None
 
     # 解析网页内容
@@ -51,7 +35,7 @@ def fetch_and_extract_info(domain,headers):
             break
 
     if not chatra_script:
-        print("未找到 ChatraIntegration 脚本信息")
+        print("未识别到用户信息")
         return None
 
     # 使用正则表达式提取需要的信息
@@ -64,8 +48,8 @@ def fetch_and_extract_info(domain,headers):
 
     # 输出用户信息
     用户信息 = f"到期时间: {user_info['到期时间']}\n剩余流量: {user_info['剩余流量']}\n"
-    print(f"到期时间: {user_info['到期时间']}")
-    print(f"剩余流量: {user_info['剩余流量']}")
+    # print(f"到期时间: {user_info['到期时间']}")
+    # print(f"剩余流量: {user_info['剩余流量']}")
 
     # 提取 Clash 订阅链接
     clash_link = None
@@ -74,8 +58,8 @@ def fetch_and_extract_info(domain,headers):
             link = re.search(r"'https://checkhere.top/link/(.*?)\?sub=1'", str(script))
             if link:
                 用户信息 += f"Clash 订阅链接: https://checkhere.top/link/{link.group(1)}?clash=1\nv2ray 订阅链接: https://checkhere.top/link/{link.group(1)}?sub=3\n\n"
-                print(f"Clash 订阅链接: https://checkhere.top/link/{link.group(1)}?clash=1")
-                print(f"v2ray 订阅链接: https://checkhere.top/link/{link.group(1)}?sub=3")
+                # print(f"Clash 订阅链接: https://checkhere.top/link/{link.group(1)}?clash=1")
+                # print(f"v2ray 订阅链接: https://checkhere.top/link/{link.group(1)}?sub=3")
                 break
     return 用户信息
 # 读取配置文件
@@ -129,7 +113,7 @@ def send_message(msg="", BotToken="", ChatID=""):
             response = requests.post(url, data=payload)
             return response
         except Exception as e:
-            print(f"发送消息时发生错误: {str(e)}")
+            print(f"发送电报消息时发生错误: {str(e)}")
             return None
 
 # 登录并签到的主要函数
@@ -167,7 +151,7 @@ def checkin(account, domain, BotToken, ChatID):
         # 发送登录请求
         login_response = requests.post(login_url, json=login_data, headers=login_headers)
 
-        print(f'Login Response Status for {user}:', login_response.status_code)
+        print(f'{user}账号登录状态:', login_response.status_code)
 
         # 如果响应状态不是200，表示登录失败
         if login_response.status_code != 200:
@@ -175,7 +159,7 @@ def checkin(account, domain, BotToken, ChatID):
 
         # 解析登录响应的 JSON 数据
         login_json = login_response.json()
-        print(f'Login Response for {user}:', login_json)
+        print(f' {user}账号登录后返回的用户信息:', login_json)
 
         # 检查登录是否成功
         if login_json.get("ret") != 1:
@@ -186,7 +170,7 @@ def checkin(account, domain, BotToken, ChatID):
         if not cookies:
             raise ValueError('登录成功但未收到Cookie')
 
-        print('Received cookies:', cookies)
+        # print('Received cookies:', cookies)
 
         # 等待确保登录状态生效
         time.sleep(1)
@@ -208,17 +192,17 @@ def checkin(account, domain, BotToken, ChatID):
         # 发送签到请求
         checkin_response = requests.post(checkin_url, headers=checkin_headers)
 
-        print(f'Checkin Response Status for {user}:', checkin_response.status_code)
+        print(f'{user}账号签到状态:', checkin_response.status_code)
 
         # 获取签到请求的响应内容
         response_text = checkin_response.text
-        print(f'Checkin Raw Response for {user}:', response_text)
+        print(f'{user}账号签到响应内容:', response_text)
 
 
         try:
             # 尝试解析签到的 JSON 响应
             checkin_result = checkin_response.json()
-            print(f'Checkin Result for {user}:', checkin_result)
+            # print(f'{user}账号签到后的json信息:', checkin_result)
             账号信息 = f"地址: {domain}\n账号: {user}\n密码: <tg-spoiler>{pass_}</tg-spoiler>\n"
 
             用户信息 = fetch_and_extract_info(domain,checkin_headers)
@@ -241,7 +225,7 @@ def checkin(account, domain, BotToken, ChatID):
 
     except Exception as error:
         # 捕获异常，打印错误并发送错误信息到 Telegram
-        print(f'Checkin Error for {user}:', error)
+        print(f'{user}账号签到异常:', error)
         签到结果 = f"签到过程发生错误: {error}"
         send_message(签到结果, BotToken, ChatID)
         return 签到结果
