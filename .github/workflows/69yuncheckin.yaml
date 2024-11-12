@@ -34,7 +34,7 @@ jobs:
       - name: Write config.json from environment variable
         run: |
           echo "生成 config.json 文件..."
-          echo "${{ secrets.CONFIG_JSON }}" > config.json
+          echo '${{ secrets.CONFIG_JSON }}' > config.json
           cat config.json
 
       - name: Run Python script
