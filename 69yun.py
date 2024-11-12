@@ -10,9 +10,9 @@ from datetime import datetime, timedelta
 config_file_path = "config.json"
 签到结果 = ""
 
-# 检查环境变量 config 是否存在，如果存在则写入 config.json，否则直接读取本地 config.json
+# 检查环境变量 CONFIG_JSON 是否存在，如果存在则写入 config.json，否则直接读取本地 config.json
 def write_config_from_env():
-    config_json = os.getenv("config")
+    config_json = os.getenv("CONFIG_JSON")
 
     if config_json:
         try:
@@ -22,9 +22,9 @@ def write_config_from_env():
                 json.dump(config_data, f, ensure_ascii=False, indent=4)
             print("配置文件已从环境变量更新。")
         except json.JSONDecodeError:
-            raise ValueError("环境变量 config 内容不是有效的 JSON 格式。")
+            raise ValueError("环境变量 CONFIG_JSON 内容不是有效的 JSON 格式。")
     else:
-        print("未检测到环境变量 config，直接使用本地的 config.json 配置文件。")
+        print("未检测到环境变量 CONFIG_JSON，直接使用本地的 config.json 配置文件。")
 
 # 获取html中的用户信息
 def fetch_and_extract_info(domain,headers):
