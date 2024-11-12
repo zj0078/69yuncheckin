@@ -159,7 +159,7 @@ def checkin(account, domain, BotToken, ChatID):
 
         # 解析登录响应的 JSON 数据
         login_json = login_response.json()
-        print(f'{user}账号登录后返回的用户信息:', login_json)
+        # print(f'{user}账号登录后返回的用户信息:', login_json)
 
         # 检查登录是否成功
         if login_json.get("ret") != 1:
@@ -196,7 +196,7 @@ def checkin(account, domain, BotToken, ChatID):
 
         # 获取签到请求的响应内容
         response_text = checkin_response.text
-        print(f'{user}账号签到响应内容:', response_text)
+        # print(f'{user}账号签到响应内容:', response_text)
 
 
         try:
