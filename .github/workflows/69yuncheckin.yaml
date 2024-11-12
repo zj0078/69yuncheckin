@@ -35,7 +35,6 @@ jobs:
         run: |
           echo "生成 config.json 文件..."
           echo '${{ secrets.CONFIG_JSON }}' > config.json
-          cat config.json
 
       - name: Run Python script
         run: python 69yun.py  # 执行你的 Python 脚本

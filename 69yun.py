@@ -96,7 +96,7 @@ def send_message(msg="", BotToken="", ChatID=""):
     formatted_time = beijing_time.strftime("%Y-%m-%d %H:%M:%S")
 
     # 打印调试信息
-    print(msg)
+    # print(msg)
 
     # 如果 Telegram Bot Token 和 Chat ID 都配置了，则发送消息
     if BotToken != '' and ChatID != '':
