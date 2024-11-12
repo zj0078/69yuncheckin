@@ -37,4 +37,4 @@ jobs:
           echo "${{ secrets.CONFIG_JSON }}" > config.json
 
       - name: Run Python script
-        run: python 60yun.py  # 执行你的 Python 脚本
+        run: python 69yun.py  # 执行你的 Python 脚本
