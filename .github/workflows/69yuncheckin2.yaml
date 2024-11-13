@@ -40,7 +40,6 @@ jobs:
           ./generate_config.sh
 
       - name: Upload config.json as artifact
-        uses: actions/upload-artifact@v2
         with:
           name: config-json
           path: ./config.json
