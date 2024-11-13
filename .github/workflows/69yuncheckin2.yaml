@@ -18,8 +18,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-      CHAT_ID: ${{ secrets.CHAT_ID }}
-      # 不需要手动列出每个USER和PASS，脚本会自动识别它们
+      CHAT_ID: ${{ secrets.CHAT_ID }}        # 这里设置可以用于多个账户
+      USER1: ${{ secrets.USER1 }}            # 用户1
+      PASS1: ${{ secrets.PASS1 }}            # 密码1
+      USER2: ${{ secrets.USER2 }}            # 用户2
+      PASS2: ${{ secrets.PASS2 }}            # 密码2
+      # 可以继续扩展更多用户和密码
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
