@@ -2,6 +2,8 @@
 
 ## 1. 点击 Star 和 Fork 这个项目
 
+视频教程：https://youtu.be/HjECaEIH4_s
+
 ### 1.1 点击 Star
 
 点个Star支持一下，非常感谢！
