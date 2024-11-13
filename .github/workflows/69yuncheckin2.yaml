@@ -39,10 +39,5 @@ jobs:
           echo "Generating config.json based on environment variables..."
           ./generate_config.sh
 
-      - name: Upload config.json as artifact
-        with:
-          name: config-json
-          path: ./config.json
-
       - name: Run Python script
         run: python 69yun.py  # 执行你的 Python 脚本
