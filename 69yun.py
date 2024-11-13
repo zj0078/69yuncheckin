@@ -62,15 +62,43 @@ def fetch_and_extract_info(domain,headers):
                 # print(f"v2ray 订阅链接: https://checkhere.top/link/{link.group(1)}?sub=3")
                 break
     return 用户信息
-# 读取配置文件
-def read_config(file_path):
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        raise FileNotFoundError(f"配置文件 {file_path} 未找到，请检查配置文件是否存在。")
-    except json.JSONDecodeError:
-        raise ValueError("配置文件格式错误，请检查 config.json 文件是否有效。")
+
+def generate_config():
+    # 获取环境变量
+    domain = os.getenv('DOMAIN', 'https://69yun69.com')  # 默认值，如果未设置环境变量
+    bot_token = os.getenv('BOT_TOKEN')
+    chat_id = os.getenv('CHAT_ID')
+
+    if not bot_token or not chat_id:
+        raise ValueError("BOT_TOKEN 和 CHAT_ID 是必需的环境变量。")
+
+    # 获取用户和密码的环境变量
+    accounts = []
+    index = 1
+
+    while True:
+        user = os.getenv(f'USER{index}')
+        password = os.getenv(f'PASS{index}')
+
+        if not user or not password:
+            break  # 如果没有找到更多的用户信息，则退出循环
+
+        accounts.append({
+            'user': user,
+            'pass': password
+        })
+        index += 1
+
+    # 构造配置数据
+    config = {
+        'domain': domain,
+        'BotToken': bot_token,
+        'ChatID': chat_id,
+        'accounts': accounts
+    }
+    print(config)
+    return config
+
 
 # 发送消息到 Telegram Bot 的函数，支持按钮
 def send_message(msg="", BotToken="", ChatID=""):
@@ -232,11 +260,9 @@ def checkin(account, domain, BotToken, ChatID):
 
 # 主程序执行逻辑
 if __name__ == "__main__":
-    # 检查环境变量 config 是否存在，如果存在则更新 config.json
-    # write_config_from_env()
 
     # 读取配置
-    config = read_config(config_file_path)
+    config = generate_config()
 
     # 读取全局配置
     domain = config['domain']
