@@ -22,10 +22,10 @@ jobs:
       # 不需要手动列出每个USER和PASS，脚本会自动识别它们
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: '3.9'
 
