@@ -1,22 +1,25 @@
-name: Python CI
+name: Python CI 2
 
 on:
   # 每天0点1分触发（UTC时间）
-  # schedule:
-  #   - cron: '1 0 * * *'
+  schedule:
+    - cron: '1 0 * * *'
 
   # 允许手动触发工作流
-  # workflow_dispatch:
+  workflow_dispatch:
 
   # 提交代码到指定分支时触发
-    # push:
-    # branches:
-      # - main  # 只在主分支提交时触发
+  push:
+    branches:
+      - main  # 只在主分支提交时触发
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+      CHAT_ID: ${{ secrets.CHAT_ID }}
+      # 不需要手动列出每个USER和PASS，脚本会自动识别它们
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -31,10 +34,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt  # 假设你的项目有 requirements.txt
 
-      - name: Write config.json from environment variable
+      - name: Generate config.json
         run: |
-          echo "生成 config.json 文件..."
-          echo '${{ secrets.CONFIG_JSON }}' > config.json
+          echo "Generating config.json based on environment variables..."
+          ./generate_config.sh
+
+      - name: Upload config.json as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: config-json
+          path: ./config.json
 
       - name: Run Python script
         run: python 69yun.py  # 执行你的 Python 脚本
