@@ -69,8 +69,8 @@ def generate_config():
     bot_token = os.getenv('BOT_TOKEN')
     chat_id = os.getenv('CHAT_ID')
 
-    if not bot_token or not chat_id:
-        raise ValueError("BOT_TOKEN 和 CHAT_ID 是必需的环境变量。")
+    # if not bot_token or not chat_id:
+        # raise ValueError("BOT_TOKEN 和 CHAT_ID 是必需的环境变量。")
 
     # 获取用户和密码的环境变量
     accounts = []
