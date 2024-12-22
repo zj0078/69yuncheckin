@@ -13,7 +13,7 @@ Sign_results = ""
 SendKey = ""
 #server酱推送
 def push(msg=""):
-    SendKey = os.getenv('SCKEY')
+    SendKey = os.environ.get('SCKEY', '1')
     print("------SendKey1---------"+SendKey)
     if SendKey != '1':
         url = "https://sctapi.ftqq.com/{}.send?title={}&desp={}".format(SendKey, '69签到', msg)
