@@ -231,7 +231,8 @@ def checkin(account, domain, BotToken, ChatID):
             # 尝试解析签到的 JSON 响应
             checkin_result = checkin_response.json()
             # print(f'{user}账号签到后的json信息:', checkin_result)
-            账号信息 = f"地址: {domain}\n账号: {user}\n密码: <tg-spoiler>{pass_}</tg-spoiler>\n"
+            #账号信息 = f"地址: {domain}\n账号: {user}\n密码: <tg-spoiler>{pass_}</tg-spoiler>\n"
+            账号信息 = f"地址: {domain}\n账号: {user}\n"
 
             用户信息 = fetch_and_extract_info(domain,checkin_headers)
 
