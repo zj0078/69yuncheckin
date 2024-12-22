@@ -1,3 +1,4 @@
+
 import os
 import json
 import requests
@@ -9,6 +10,17 @@ from datetime import datetime, timedelta
 # 配置文件路径
 config_file_path = "config.json"
 签到结果 = ""
+
+#server酱 key
+SCKEY = os.environ.get('SCKEY')
+# server酱
+def push(content):
+    if SCKEY != '1':
+        url = "https://sctapi.ftqq.com/{}.send?title={}&desp={}".format(SCKEY, '69签到', content)
+        requests.post(url)
+        print('推送完成')
+    else:
+        print('未使用消息推送推送！')
 
 # 获取html中的用户信息
 def fetch_and_extract_info(domain,headers):
@@ -149,6 +161,7 @@ def checkin(account, domain, BotToken, ChatID):
     user = account['user']
     pass_ = account['pass']
 
+    # 不打印地址和账号
     签到结果 = f"地址: {domain[:9]}****{domain[-5:]}\n账号: {user[:1]}****{user[-5:]}\n"
 
     try:
@@ -250,14 +263,18 @@ def checkin(account, domain, BotToken, ChatID):
 
         # 发送签到结果到 Telegram
         send_message(账号信息 + 用户信息 + 签到结果, BotToken, ChatID)
+		push(签到结果)
         return 签到结果
 
     except Exception as error:
         # 捕获异常，打印错误并发送错误信息到 Telegram
         print(f'{user}账号签到异常:', error)
         签到结果 = f"签到过程发生错误: {error}"
-        send_message(签到结果, BotToken, ChatID)
+        send_message(签到结果, BotToken, ChatID
+		push(签到结果)
         return 签到结果
+		
+		
 
 # 主程序执行逻辑
 if __name__ == "__main__":
