@@ -11,9 +11,10 @@ config_file_path = "config.json"
 Sign_results = ""
 
 #server酱 key
-SCKEY = os.environ.get('SCKEY')
+SCKEY = os.getenv('SCKEY')
 # server酱
 def push(msg=""):
+    print("------SCKEY---------"+SCKEY)
     if SCKEY != '1':
         url = "https://sctapi.ftqq.com/{}.send?title={}&desp={}".format(SCKEY, '69签到', msg)
         requests.post(url)
