@@ -17,6 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      SCKEY: ${{ secrets.SCKEY }}  #server酱
       BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
       CHAT_ID: ${{ secrets.CHAT_ID }}        # 这里设置可以用于多个账户
       USER1: ${{ secrets.USER1 }}            # 用户1
