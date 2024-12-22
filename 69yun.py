@@ -149,7 +149,7 @@ def checkin(account, domain, BotToken, ChatID):
     user = account['user']
     pass_ = account['pass']
 
-    签到结果 = f"地址: {domain[:9]}****{domain[-5:]}\n账号: {user[:1]}****{user[-5:]}\n密码: {pass_[:1]}****{pass_[-1]}\n\n"
+    签到结果 = f"地址: {domain[:9]}****{domain[-5:]}\n账号: {user[:1]}****{user[-5:]}\n"
 
     try:
         # 检查必要的配置参数是否存在
