@@ -262,8 +262,7 @@ def checkin(account, domain, BotToken, ChatID):
 
         # 发送签到结果到 Telegram
         send_message(账号信息 + 用户信息 + Sign_results, BotToken, ChatID)
-        print("-------测试-----"+Sign_results)
-        #push(Sign_results)
+        push(Sign_results)
         return Sign_results
 
     except Exception as error:
@@ -271,7 +270,7 @@ def checkin(account, domain, BotToken, ChatID):
         print(f'{user}账号签到异常:', error)
         Sign_results = f"签到过程发生错误: {error}"
         send_message(Sign_results, BotToken, ChatID)
-        #push(Sign_results)
+        push(Sign_results)
         return Sign_results
 
 
