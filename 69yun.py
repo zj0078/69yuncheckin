@@ -1,4 +1,3 @@
-
 import os
 import json
 import requests
@@ -161,7 +160,7 @@ def checkin(account, domain, BotToken, ChatID):
     user = account['user']
     pass_ = account['pass']
 
-    # 不打印地址和账号
+
     签到结果 = f"地址: {domain[:9]}****{domain[-5:]}\n账号: {user[:1]}****{user[-5:]}\n"
 
     try:
@@ -263,7 +262,8 @@ def checkin(account, domain, BotToken, ChatID):
 
         # 发送签到结果到 Telegram
         send_message(账号信息 + 用户信息 + 签到结果, BotToken, ChatID)
-		push(签到结果)
+		print("-------测试-----"+签到结果)
+		#push(签到结果)
         return 签到结果
 
     except Exception as error:
@@ -271,7 +271,7 @@ def checkin(account, domain, BotToken, ChatID):
         print(f'{user}账号签到异常:', error)
         签到结果 = f"签到过程发生错误: {error}"
         send_message(签到结果, BotToken, ChatID
-		push(签到结果)
+		#push(签到结果)
         return 签到结果
 		
 		
