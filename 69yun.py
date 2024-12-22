@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 
 # 配置文件路径
 config_file_path = "config.json"
-Sign_results = ""
+签到结果 = ""
 
 #server酱 key
 SCKEY = os.environ.get('SCKEY')
@@ -161,7 +161,7 @@ def checkin(account, domain, BotToken, ChatID):
     pass_ = account['pass']
 
 
-    Sign_results = f"地址: {domain[:9]}****{domain[-5:]}\n账号: {user[:1]}****{user[-5:]}\n"
+    签到结果 = f"地址: {domain[:9]}****{domain[-5:]}\n账号: {user[:1]}****{user[-5:]}\n"
 
     try:
         # 检查必要的配置参数是否存在
@@ -251,9 +251,9 @@ def checkin(account, domain, BotToken, ChatID):
             # 账号信息的展示，注意密码用 <tg-spoiler> 标签隐藏
             # 根据返回的结果更新签到信息
             if checkin_result.get('ret') == 1 or checkin_result.get('ret') == 0:
-                Sign_results = f"🎉 Sign_results 🎉\n {checkin_result.get('msg', '签到成功' if checkin_result['ret'] == 1 else '签到失败')}"
+                签到结果 = f"🎉 签到结果 🎉\n {checkin_result.get('msg', '签到成功' if checkin_result['ret'] == 1 else '签到失败')}"
             else:
-                Sign_results = f"🎉 Sign_results 🎉\n {checkin_result.get('msg', '签到结果未知')}"
+                签到结果 = f"🎉 签到结果 🎉\n {checkin_result.get('msg', '签到结果未知')}"
         except Exception as e:
             # 如果出现解析错误，检查是否由于登录失效
             if "登录" in response_text:
@@ -261,20 +261,18 @@ def checkin(account, domain, BotToken, ChatID):
             raise ValueError(f"解析签到响应失败: {str(e)}\n\n原始响应: {response_text}")
 
         # 发送签到结果到 Telegram
-        send_message(账号信息 + 用户信息 + Sign_results, BotToken, ChatID)
-        print("-------测试-----"+Sign_results)
-        #push(Sign_results)
-        return Sign_results
+        send_message(账号信息 + 用户信息 + 签到结果, BotToken, ChatID)
+        push(签到结果)
+        return 签到结果
 
     except Exception as error:
         # 捕获异常，打印错误并发送错误信息到 Telegram
         print(f'{user}账号签到异常:', error)
-        Sign_results = f"签到过程发生错误: {error}"
-        send_message(Sign_results, BotToken, ChatID
-        #push(Sign_results)
-        return Sign_results
-		
-		
+        签到结果 = f"签到过程发生错误: {error}"
+        send_message(签到结果, BotToken, ChatID
+        push(签到结果)
+        return 签到结果
+
 
 # 主程序执行逻辑
 if __name__ == "__main__":
