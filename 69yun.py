@@ -9,9 +9,9 @@ from datetime import datetime, timedelta
 # 配置文件路径
 config_file_path = "config.json"
 Sign_results = ""
-
 #server酱 key
-SendKey = "" server酱
+SendKey = ""
+#server酱推送
 def push(msg=""):
     SendKey = os.getenv('SCKEY')
     print("------SendKey1---------"+SendKey)
