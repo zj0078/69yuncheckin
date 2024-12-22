@@ -57,7 +57,7 @@ def fetch_and_extract_info(domain,headers):
         if 'index.oneclickImport' in str(script) and 'clash' in str(script):
             link = re.search(r"'https://checkhere.top/link/(.*?)\?sub=1'", str(script))
             if link:
-                用户信息 += f"Clash 订阅链接: <tg-spoiler>https://checkhere.top/link/{link.group(1)}?clash=1\nv2ray</tg-spoiler> 订阅链接: <tg-spoiler>https://checkhere.top/link/{link.group(1)}?sub=3</tg-spoiler> \n\n"
+                用户信息 += f"Clash 订阅链接: <tg-spoiler>https://checkhere.top/link/{link.group(1)}?clash=1</tg-spoiler>\n v2ray订阅链接: <tg-spoiler>https://checkhere.top/link/{link.group(1)}?sub=3</tg-spoiler> \n\n"
                 # print(f"Clash 订阅链接: https://checkhere.top/link/{link.group(1)}?clash=1")
                 # print(f"v2ray 订阅链接: https://checkhere.top/link/{link.group(1)}?sub=3")
                 break
