@@ -29,6 +29,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # --- 建议加上这一段，防止被封 ---
+      - name: Random Sleep
+        run: sleep $((1 + RANDOM % 300)) # 随机延迟 1-5 分钟        
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
